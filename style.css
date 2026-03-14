@@ -1,0 +1,110 @@
+/* ==== 서치 영역 style === */
+
+body{
+ 
+    background-color: aliceblue;
+}
+.a-category{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+.a-category div a{
+    padding: 10px;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+.a-category div a:hover{
+    color: blue;
+   
+}
+.search-text{
+   
+    border-top: 1px solid lightgray;
+    padding:20px;
+    display: flex;
+    justify-content: center;
+}
+.search-area{
+    display: flex;
+    justify-content: center;
+  
+}
+/* input 창 */
+
+.fa-magnifying-glass{
+    position: relative;
+    top: 23px;
+    left: 44px;
+    color: rgb(145, 138, 138);
+    font-size: 15px;
+}
+
+#user-value {   
+
+    min-width: 90%;
+    font-size: 15px;
+    height: 40px;
+    border: 1px solid lightgray ;
+    border-radius: 40px;
+    margin: 10px;
+    padding-left: 40px;
+
+
+}
+
+
+
+/* recommend 영역 */
+.recommend-area{
+   margin: 20px;
+}
+#recommend-render{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.recommend-list{
+    display: flex;
+    position: relative;;
+ 
+   
+
+}
+.recommend-books{
+cursor: pointer;
+color: gray;
+margin: 10px;
+border: 1px solid lightgrey;
+border-radius: 40px;
+padding: 10px
+ 
+}
+
+.search-book-area{
+    margin: 10px;
+}
+
+
+.search-book-area img{
+    width:100%;
+    aspect-ratio: 3/4;
+    border-radius: 10px;
+    /* object-fit: cover; */
+   
+}
+.search-book-area div{
+margin: 10px;
+}
+
+.book-title{
+    font-size: 16px;
+    font-weight:bold;
+}
+
+.book-authors{
+    font-size: 13px;
+    font-weight: 100;
+}

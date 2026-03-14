@@ -1,0 +1,8 @@
+# API 키 숨기기
+js/config.js
+
+# node_modules 폴더 무시 (npm 사용하는 경우)
+node_modules/
+
+# macOS 시스템 파일 무시
+.DS_Store
