@@ -21,3 +21,16 @@ export const searchBooks = async (keyword,page) => {
   };
 
 
+export const bestSellBooks = async()=>{
+
+  let url = `https://dapi.kakao.com/v3/search/book?&query=소설`;
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `KakaoAK ${API_KEY}`
+    }
+  });
+
+  const data = await response.json();
+  return data;
+
+}

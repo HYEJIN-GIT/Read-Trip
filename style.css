@@ -118,3 +118,27 @@ margin: 10px;
     display: flex;
     justify-content: center;
 }
+
+
+/* ====home style === */
+
+.home-area{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+.home-area div a{
+    padding: 10px;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.home-area div a:hover{
+
+    color: rgb(30, 0, 139);
+}
+
+.best-home{
+    display: flex;
+}
