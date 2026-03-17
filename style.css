@@ -142,3 +142,24 @@ margin: 10px;
 .best-home{
     display: flex;
 }
+
+
+/* ====library ====*/
+
+.status{
+    display: flex;
+    justify-content: center;
+}
+.status div{
+    cursor: pointer;
+    margin: 30px;
+    padding: 9px;
+    font-size: 15px;
+}
+
+.hope.active{
+    border: none;
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+    background-color: rgb(151, 153, 248);
+}

@@ -1,4 +1,5 @@
 import {searchBooks} from "./api.js"
+import { getBooks, addBooks } from "./storage.js"
 
 
 const userValue = document.getElementById('user-value')
@@ -11,6 +12,8 @@ let totalResult = 0
 const size = 10
 const groupSize = 5
 
+const bookss = getBooks()
+console.log(bookss)
 
 // 버튼 클릭 이벤트
 // button.addEventListener('click',(event)=>{
@@ -28,7 +31,7 @@ userValue.addEventListener("keydown",(event)=>{
      
 })
 
-const getSearchBooks = async ()=>{
+export const getSearchBooks = async ()=>{
     let keyword = userValue.value.trim()
     let data = await searchBooks(keyword,page)
     console.log("요청 페이지", page)
@@ -38,6 +41,9 @@ const getSearchBooks = async ()=>{
     render()
     paginationRender()
 }
+
+
+
 
 // 추천 키워드 렌더
 const recommendRender = ()=>{
@@ -67,7 +73,7 @@ recommendRender()
 
 
 
-const render = ()=>{
+export const render = ()=>{
     document.getElementById('recommend-render').innerHTML = ''
     let bookHTML = 
     ` <section class="search-book-area row ">
@@ -75,6 +81,7 @@ const render = ()=>{
         bookList.map(book=>`
        
             <div class = "col-2">
+            <button class="add-btn">+</button>
               
                 <img src ="${book.thumbnail}">
                  <div class="book-title">${book.title.length <10 ? book.title: book.title.slice(0,10)+"..."}</div>
@@ -90,6 +97,39 @@ const render = ()=>{
     `
  
     document.getElementById('book-render').innerHTML = bookHTML
+    const addButton = document.querySelectorAll('.add-btn')
+addButton.forEach((item,index)=>{
+  item.addEventListener('click',()=>{
+    addBook(bookList[index])
+  })
+})
+
+
+const addBook = (index)=>{
+   let book = {
+    id : Date.now(),
+    done :false,
+    title :index.title,
+     status: "reading",
+     thumbnail: index.thumbnail
+   }
+ 
+let bookadd=  addBooks(book)
+console.log(bookss)
+
+ 
+}
+
+
+}
+
+
+const bookRender = ()=>{
+  let readHTML = readList.map(item=>`
+    <div>${item.title}</div>
+    `).join('')
+  
+  document.getElementById('reading').innerHTML = readHTML
 }
 
 
