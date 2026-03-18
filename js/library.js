@@ -24,13 +24,9 @@ const render = ()=>{
 
           let data = event.target.dataset.id 
           data = Number(data)
-          console.log(data)
-        
-let findBook =   book.find(item=> 
-            item.id === data )
-console.log(findBook)
+            updateBooks(data)
 
-findBook.status = "done"
+
 
 
 
@@ -40,3 +36,15 @@ findBook.status = "done"
 }
 
 render()
+const updateBooks=(id)=>{
+    let bookList = getBooks()
+    let findBook = bookList.find(
+        item=>
+        item.id === id
+    )
+    findBook.status = "done"
+
+    localStorage.setItem("book",JSON.stringify(bookList))
+    console.log(findBook,bookList)
+    
+}
