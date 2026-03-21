@@ -1,4 +1,5 @@
 import {searchBooks} from "./api.js"
+import { addBooks } from "./storage.js"
 // import { getBooks, addBooks } from "./storage.js"
 
 
@@ -268,12 +269,13 @@ const recommendRender = ()=>{
   recommendBtn.forEach(item=>
     item.addEventListener('click',()=>{
       userValue.value = item.textContent.trim()
-      console.log("히히",item)
       getSearchBooks()
     })
   )
 }
 recommendRender()
+
+
 const render = ()=>{
   let bookHTML = `<section class="search-book-area row ">
       ${
@@ -281,7 +283,7 @@ const render = ()=>{
          
               <div class = "col-2">
             
-                
+                  <button  class= "plus-book" data-id="${book.isbn}">책 추가</button>
                   <img src ="${book.thumbnail}">
                    <div class="book-title">${book.title.length <10 ? book.title: book.title.slice(0,10)+"..."}</div>
                    <div class ="book-authors">${book.authors}</div>
@@ -296,6 +298,20 @@ const render = ()=>{
       `
 
   document.getElementById('book-render').innerHTML = bookHTML
+  document.querySelectorAll('.plus-book').forEach(
+    item=> 
+      item.addEventListener('click',()=>{
+      
+     
+      const isbn = item.dataset.id
+      console.log(isbn)
+      let plusBooks = bookList.find(id => id.isbn === isbn)
+      addBooks(plusBooks)
+    
+
+      })
+    
+  )
 }
 
 

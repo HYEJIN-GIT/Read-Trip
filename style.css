@@ -207,18 +207,18 @@ margin-top: 50px;
 
 /* ====library ====*/
 
-.status{
+.tabs{
     display: flex;
     justify-content: center;
 }
-.status div{
+.tabs div{
     cursor: pointer;
     margin: 30px;
     padding: 9px;
     font-size: 15px;
 }
 
-.hope.active{
+.tabs div.active{
     border: none;
     color: rgb(255, 255, 255);
     border-radius: 20px;
