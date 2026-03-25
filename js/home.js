@@ -1,83 +1,76 @@
-import {bestSellBooks} from "./api.js"
+import { getBooks, getTotalBooks, goalBooks } from "./storage.js";
 
+const recentBooks = getBooks();
 
-let bestBookList = []
-let start = 0
-
-
-
-const getBestSell = async ()=>{
-    let data = await bestSellBooks()
-    bestBookList = data.documents
-    console.log(bestBookList)
-    render()
-}
-
-getBestSell()
-
-
-
-
-const render = ()=>{
-  
-
-  
-
- 
-    let bookHTML = 
-
-    
-    `
-    <section class="best-area row ">
- 소설 베스트 셀러
-    <div class= "best-section">
-     <div id="left"><i class="fa-solid fa-angle-left"></i></div>
-    ${
-        bestBookList.slice(start, start+5).map(item=>`
-       
-            <div class = "col-2">
-              
-                <img src ="${item.thumbnail}">
-                 <div class="book-title">${item.title.length <10 ? item.title: item.title.slice(0,10)+"..."}</div>
-                 <div class ="book-authors">${item.authors}</div>
-            </div>
-         
-          
-            
-            `).join('')
-    }  
-    <div id = "right"><i class="fa-solid fa-angle-right"></i></div>
+// 최근 추가한 책 렌더
+const recentBooksRender = () => {
+    const recentBookList = recentBooks.slice(0,5).reverse();
+    const html = `
+    <div class="recent-content">
+        <h4>최근 추가한 책</h4>
+        <a href="library.html" class="btn-more">전체 내 서재 보기</a>
     </div>
-   
-    
-    </section>
-    `
-    document.getElementById('best-novel').innerHTML = bookHTML
+    <div class="recent-book">
+        ${recentBookList.map(book => `
+        <div class="book-card">
+            <img src="${book.thumbnail}" alt="${book.title}">
+            <div class="recent-title">${book.title.length <10 ? book.title : book.title.slice(0,10)+"..."}</div>
+            <div class="book-authors">${book.authors}</div>
+        </div>`).join('')}
+    </div>
+    `;
+    document.getElementById('register').innerHTML = html;
+}
+recentBooksRender();
+
+
+// 읽은 책 / 읽는 책 / 총 등록 책, 프로그래스바
+const readDone = () => {
+    const done = recentBooks.filter(item => item.state === "done");
+    const reading = recentBooks.filter(item => item.state === "reading");
+
+
+    document.getElementById('read-done').textContent = `다 읽은 책 : ${done.length} 권`;
+    document.getElementById('read-plan').textContent = `읽고 있는 책 : ${reading.length} 권`;
+
+    const totalRead = document.getElementById('total-read')
 
 
 
-    
-document.getElementById('left').addEventListener("click",()=>{
-    if(start>0){
-        start -=5
-       }
-render()
 
-})
+    const MonthGoalRender = (value) => {
+        const goalHTML = `
+        목표 : ${value}권 / ${reading.length}권
+        `
+        document.getElementById('goal').innerHTML = goalHTML
 
-
-document.getElementById('right').addEventListener('click',()=>{
-    if(start+5<bestBookList.length)
-        {
-         start+=5
-         
+        if(value === reading.length){
+            document.getElementById('goal').innerHTML = `
+            <p> 목표 : ${value}권 / ${reading.length}권</p> 
+            <p>이번달 목표에 달성 했습니다 !</p> 
+            `
         }
+    }
+
+
+    const saved = getTotalBooks()
+    if(saved){
+        MonthGoalRender(saved)
+    }
+
    
-    render()
-})
+    totalRead.addEventListener('keydown',(event)=>{
+        if(event.key === "Enter"){
+            event.preventDefault()
+
+            const value = Number(totalRead.value) || 0
+
+            goalBooks(value)        // 저장
+            MonthGoalRender(value)  // 화면 반영
+
+            totalRead.value = ""    // 입력창 초기화
+        }
+    })
 }
 
-
-
-
-
+readDone();

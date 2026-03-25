@@ -1,25 +1,3 @@
-// const LS_key = "book"
-
-
-// export function getBooks(){
-//     const data = localStorage.getItem(LS_key)
-//     return data ? JSON.parse(data) : [];
-// }
-
-// export function addBooks(book) {
-//     const books = getBooks();
-  
-//     const newBooks = {
-//       id: Date.now(), // 간단한 id 생성
-//       ...book,
-//     };
-  
-//    books.push(newBooks);
-  
-//     localStorage.setItem(LS_key, JSON.stringify(books));
-  
-//     return newBooks;
-//   }
 
 
 
@@ -75,4 +53,19 @@ export function updateState(id){
         return item
     })
     localStorage.setItem(LS, JSON.stringify(updatedBooks))
+}
+
+
+const LS_Value = "total"
+
+export function getTotalBooks (){
+    let totalData = localStorage.getItem(LS_Value)
+
+    return totalData? JSON.parse(totalData) : 0
+}
+
+export function goalBooks(book){
+    const goal = getTotalBooks()
+    localStorage.setItem(LS_Value,JSON.stringify(book))
+    console
 }
